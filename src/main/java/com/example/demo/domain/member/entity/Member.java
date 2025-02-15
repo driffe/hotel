@@ -34,16 +34,12 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member")
     private List<Reservation> reservations = new ArrayList<>();
 
-    public static Member of(String username, String name) {
+    public static Member of(String username, String name, String password) {
         return Member.builder()
                 .username(username)
                 .name(name)
+                .password(password)
                 .build();
-    }
-
-    @Override
-    public String getPassword() {
-        return "";
     }
 
     @Override

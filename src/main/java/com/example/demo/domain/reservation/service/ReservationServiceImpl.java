@@ -2,6 +2,7 @@ package com.example.demo.domain.reservation.service;
 
 import com.example.demo.domain.hotel.repository.HotelRepository;
 import com.example.demo.domain.member.entity.Member;
+import com.example.demo.domain.member.repository.MemberRepository;
 import com.example.demo.domain.reservation.dto.ReservationRequestDto;
 import com.example.demo.domain.reservation.entity.Reservation;
 import com.example.demo.domain.reservation.repository.ReservationRepository;
