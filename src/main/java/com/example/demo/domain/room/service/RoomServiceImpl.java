@@ -20,7 +20,7 @@ public class RoomServiceImpl implements RoomService{
     @Override
     public List<RoomResponseDto> getRoomsByHotel(Long hotelId) {
         Hotel hotel = hotelRepository.findById(hotelId)
-                .orElseThrow(() -> new HotelHandler(ErrorStatus.HOTEL_NOT_FOUND));
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 호텔."));
 
         return roomRepository.findByHotelId(hotelId).stream()
                 .map(RoomResponseDto::of)
@@ -30,7 +30,7 @@ public class RoomServiceImpl implements RoomService{
     @Override
     public List<RoomResponseDto> getAvailableRooms(Long hotelId, RoomType roomType) {
         Hotel hotel = hotelRepository.findById(hotelId)
-                .orElseThrow(() -> new HotelHandler(ErrorStatus.HOTEL_NOT_FOUND));
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 호텔."));
 
         return roomRepository.findByHotelIdAndTypeAndStatus(hotelId, roomType, true).stream()
                 .map(RoomResponseDto::of)

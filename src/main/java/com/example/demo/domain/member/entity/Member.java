@@ -41,9 +41,4 @@ public class Member extends BaseTimeEntity {
                 .password(password)
                 .build();
     }
-
-    @Override
-    public String getPassword() {
-        return "";
-    }
 }

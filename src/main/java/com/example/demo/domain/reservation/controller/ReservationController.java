@@ -18,7 +18,7 @@ public class ReservationController {
     @PostMapping
     public ResponseEntity<Long> createReservation(
             @RequestParam String username,
-            @RequestBody @Valid ReservationRequestDto request) {
+            @RequestBody ReservationRequestDto request) {
         return ResponseEntity.ok(reservationService.createReservation(username, request));
     }
 

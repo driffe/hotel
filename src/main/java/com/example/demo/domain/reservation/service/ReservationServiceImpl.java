@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService{
@@ -24,11 +26,11 @@ public class ReservationServiceImpl implements ReservationService{
     @Transactional
     public Long createReservation(String username, ReservationRequestDto dto) {
         Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
 
         Room room = roomRepository.findByHotelIdAndTypeAndStatus(
                         dto.getHotelId(), dto.getRoomType(), true)
-                .orElseThrow(() -> new RoomHandler(ErrorStatus.ROOM_NOT_AVAILABLE));
+                .orElseThrow(() -> new RuntimeException("예약 가능한 객실이 없습니다."));
 
         room.updateStatus(false);  // 방 상태 업데이트
 
@@ -46,10 +48,10 @@ public class ReservationServiceImpl implements ReservationService{
     @Transactional
     public void cancelReservation(String username, Long reservationId) {
         Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+                .orElseThrow(() ->new RuntimeException("존재하지 않는 회원입니다."));
 
         Reservation reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new ReservationHandler(ErrorStatus.RESERVATION_NOT_FOUND));
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 예약"));
 
         validateReservationOwner(member, reservation);
 
@@ -62,14 +64,14 @@ public class ReservationServiceImpl implements ReservationService{
     @Override
     public List<Reservation> getReservationsByMember(String username) {
         Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
 
         return reservationRepository.findByMember(member);
     }
 
     private void validateReservationOwner(Member member, Reservation reservation) {
         if (!member.equals(reservation.getMember())) {
-            throw new ReservationHandler(ErrorStatus.RESERVATION_ONLY_TOUCHED_BY_OWNER);
+            throw new RuntimeException("오너 확인");
         }
     }
 }

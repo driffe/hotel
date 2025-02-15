@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Hotel API", description = "Hotel API")
-@ApiResponse(responseCode = "2000", description = "Success")
 @RestController
 @RequestMapping("/api/hotels")
 @RequiredArgsConstructor

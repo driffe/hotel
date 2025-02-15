@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class HotelRepository extends JpaRepository<Hotel, Long> {  // extends가 아닌 implements 사용
+public interface HotelRepository extends JpaRepository<Hotel, Long> {  // extends가 아닌 implements 사용
     List<Hotel> findByName(String name);
 }

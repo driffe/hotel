@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
     List<Room> findByHotelId(Long hotelId);
-    List<Room> findByHotelIdAndTypeAndStatus(Long hotelId, RoomType type, boolean status);
+    Optional<Room> findByHotelIdAndTypeAndStatus(Long hotelId, RoomType type, boolean status);
 }
