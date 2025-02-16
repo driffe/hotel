@@ -1,13 +1,15 @@
 package com.example.demo.domain.reservation.controller;
 
 import com.example.demo.domain.reservation.dto.ReservationRequestDto;
-import com.example.demo.domain.reservation.entity.Reservation;
+import com.example.demo.domain.reservation.dto.ReservationResponseDto;
 import com.example.demo.domain.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -30,8 +32,8 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/my")
-    public ResponseEntity<List<Reservation>> getMyReservations(
+    @GetMapping("/me")
+    public ResponseEntity<List<ReservationResponseDto>> getMyReservations(
             @RequestParam String username) {
         return ResponseEntity.ok(reservationService.getReservationsByMember(username));
     }

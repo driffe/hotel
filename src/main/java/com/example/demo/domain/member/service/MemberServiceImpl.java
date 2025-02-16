@@ -1,10 +1,14 @@
 package com.example.demo.domain.member.service;
 
+import com.example.demo.domain.member.dto.MemberResponseDto;
 import com.example.demo.domain.member.entity.Member;
 import com.example.demo.domain.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +31,12 @@ public class MemberServiceImpl implements MemberService{
     public Member findByUsername(String username) {
         return memberRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    }
+
+    @Override
+    public List<MemberResponseDto> getAllMembers() {
+        return memberRepository.findAll().stream()
+                .map(MemberResponseDto::of)
+                .collect(Collectors.toList());
     }
 }

@@ -4,6 +4,7 @@ import com.example.demo.domain.hotel.repository.HotelRepository;
 import com.example.demo.domain.member.entity.Member;
 import com.example.demo.domain.member.repository.MemberRepository;
 import com.example.demo.domain.reservation.dto.ReservationRequestDto;
+import com.example.demo.domain.reservation.dto.ReservationResponseDto;
 import com.example.demo.domain.reservation.entity.Reservation;
 import com.example.demo.domain.reservation.repository.ReservationRepository;
 import com.example.demo.domain.room.entity.Room;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -62,11 +64,13 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public List<Reservation> getReservationsByMember(String username) {
+    public List<ReservationResponseDto> getReservationsByMember(String username) {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
 
-        return reservationRepository.findByMember(member);
+        return reservationRepository.findByMember(member).stream()
+                .map(ReservationResponseDto::of)
+                .collect(Collectors.toList());
     }
 
     private void validateReservationOwner(Member member, Reservation reservation) {

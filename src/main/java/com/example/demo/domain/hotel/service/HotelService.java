@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HotelService {
-    Long createHotel(String username, HotelRequestDTO dto);
-    Long updateHotel(String username, Long hotelId, HotelRequestDTO dto);
-    void deleteHotel(String username, Long hotelId);
+    Long createHotel(HotelRequestDTO dto);
+    Long updateHotel(Long hotelId, HotelRequestDTO dto);
+    void deleteHotel(Long hotelId);
     Optional<Hotel> getById(Long hotelId);
+
+    List<Hotel> getAllHotels();
 }

@@ -33,14 +33,18 @@ public class Hotel extends BaseTimeEntity {
     @Column
     private String description;
 
+    @Column(unique = true)
+    private String hotelKey;
+
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<Room> rooms = new ArrayList<>();
 
     @Builder
-    private Hotel(String name, String address, String description, String phone) {
+    private Hotel(String name, String address, String description, String hotelKey) {
         this.name = name;
         this.address = address;
         this.description = description;
+        this.hotelKey = hotelKey;
     }
 
     public static Hotel of(HotelRequestDTO dto) {
@@ -48,6 +52,7 @@ public class Hotel extends BaseTimeEntity {
                 .name(dto.getName())
                 .address(dto.getAddress())
                 .description(dto.getDescription())
+                .hotelKey(dto.getHotelKey())
                 .build();
     }
 
