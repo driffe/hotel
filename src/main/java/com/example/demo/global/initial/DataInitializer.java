@@ -36,18 +36,17 @@ public class DataInitializer {
 
         memberRepository.saveAll(Arrays.asList(member1, member2));
 
-        // 호텔 생성
         Hotel hotel1 = Hotel.builder()
-                .name("그랜드 호텔")
-                .address("서울시 강남구")
-                .description("5성급 럭셔리 호텔")
+                .name("Grand Hotel")
+                .address("SF, CA")
+                .description("5Star luxury")
                 .hotelKey("hotel01")
                 .build();
 
         Hotel hotel2 = Hotel.builder()
-                .name("시티 호텔")
-                .address("서울시 마포구")
-                .description("비즈니스 호텔")
+                .name("City Hotel")
+                .address("SJ, CA")
+                .description("Business Hotel")
                 .hotelKey("hotel02")
                 .build();
 
